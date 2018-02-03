@@ -13,7 +13,7 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
         'Imagery c <a href="http://mapbox.com">Mapbox</a>',
     id: 'mapbox.streets'
 }).addTo(map);
-
+//map.setMinZoom()
 // Ask current location and put current position sign
 
 function gglocation(){
@@ -169,21 +169,16 @@ function tmp(i, requestURL){
         for (var j = 0; j < data_list.length; j++) {
             tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
             tmp_mark.addTo(map)
+            tmp_mark.bindPopup(Type_list[i]+"<br>"+data_list[j][Type_list[i]])
             tmp_mark.on(
                 'mouseover', 
-                onClick_marker(
-                    tmp_mark,
-                    Type_list[i], 
-                    data_list[j][Type_list[i]]))
+                onClick_marker(){
+                    tmp_mark.openPopup()
+                })
         }
     }
 }
 
-
-
-function onClick_marker(m,a,b){
-    m.bindPopup(a+"<br>"+ b).openPopup()
-}
 
 function pkdate(){
     var now = new Date()

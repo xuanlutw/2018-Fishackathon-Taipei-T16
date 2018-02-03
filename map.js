@@ -140,9 +140,9 @@ function show_icon(){
             request.responseType = 'json'
             request.send()
             request.onload = function(){
-                var x = request.response
+                var y = request.response
                 var data_list = []
-                x = JSON.parse(x)
+                var x = JSON.parse(y)
                 for (var j = 0; j < data_list.length; j++) {
                      data_list[j] = JSON.parse(data_list[j])
                      tmp_mark = L.marker([data_list[j][lat],data_list[j][lng]])
@@ -197,31 +197,3 @@ function pkdate(){
     now = new Date(s)
     return now
 }
-
-
-// function flush(){
-//     var requestURL = './route.json';
-//     var request = new XMLHttpRequest();
-//     request.open('GET', requestURL);
-//     request.responseType = 'json';
-//     request.send();
-//     request.onload = function() {
-//         var route = request.response;
-//         var latlngs = new Array(load);
-// 	    for (let i = 0;i < load;++i){
-//     		latlngs[i] = new Array(2);
-// 		    latlngs[i][0] = route[i].lat;
-// 	    	latlngs[i][1] = route[i].lng;
-// 	    }
-//     	polyline.setLatLngs(latlngs);
-// 		marker.setLatLng([route[0].lat, route[1].lng]);
-// 		marker.bindPopup(route[0].time).openPopup();
-// 	    if (set_zone == 1) map.fitBounds(polyline.getBounds());
-//     }
-// 	console.log('flush!');
-// 	var date = new Date();
-// 	var hour = date.getHours();
-// 	var minute = date.getMinutes();
-// 	var second = date.getSeconds();
-// 	document.getElementById('updated').innerHTML = 'Last updated on:'+hour+':'+minute+':'+second;
-// }

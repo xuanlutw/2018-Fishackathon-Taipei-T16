@@ -51,7 +51,24 @@ function onMapClick(e)
 map.on('click', onMapClick); */
 
 // checked layers
-Type_list = ["algal", "scum", "garbage", "oil", "water", "wind", "ice", "boatRamp", "dock", "toilet", "killed", "deform", "mark", "invasive", "angler", "crowd_people", "crowd_boat", "illegal"]
+Type_list = ["algae_bloom",
+    "surface_scum",
+    "trash", 
+    "oil", 
+    "water_temperature", 
+    "wind_direction", 
+    "ice_thickness", 
+    "boat_ramp", 
+    "dock", 
+    "bathroom", 
+    "fish_kill", 
+    "fish_deformities", 
+    "fish_marks", 
+    "fish_invasive", 
+    "angler_number", 
+    "location_crowd", 
+    "boat_number", 
+    "illegal"]
 checked_list = new Array(Type_list.length);
 for(var i = 0 ; i < checked_list.length ; i++) checked_list[i] = false;
 var lngW = map.getBounds().getWest();

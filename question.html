@@ -1,103 +1,199 @@
-<html>
-    <head>
-        <title>Report</title>
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<!DOCTYPE html>
+<html lang="en" class=" js no-touch cssanimations csstransforms csstransforms3d csstransitions">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <link rel="shortcut icon" type="image/x-icon" href="http://leafletjs.com/examples/quick-start/docs/images/favicon.ico">       
-        <link rel="stylesheet" href="./leaflet/leaflet.css" />
-        <script src="./leaflet/leaflet.js"></script>
-    </head>
-    <body onload="gglocation()">
-        <center>
-            <form action = "datapost" name = "questionnaire" method = "post">
-            <input id = "lat" type = "hidden" name = "latitude" value = '0'>
-            <input id = "lng" type = "hidden" name = "longitude" value = '0'>
-            <font size = "5">Environment condtions:</font><br>
+        <link rel="stylesheet" href="http://linux2.csie.ntu.edu.tw:3333/leaflet/leaflet.css" />
+        <script src="http://linux2.csie.ntu.edu.tw:3333/leaflet/leaflet.js"></script>
 
-            1.Pollutions(click if there is)<br>
-            <input type = "checkbox" name = "algae_bloom" value = "algae_bloom">Algae Bloom<br>
-            <input type = "checkbox" name = "surface_scum" value = "surface_scum">Algae Bloom<br>
-            <input type = "checkbox" name = "trash" value = "trash">Surface Garbage<br>
-            <input type = "checkbox" name = "oil" value = "oil">Oil<br>
+		<title>Report</title>
 
-            2.Wind Direction<br>
-            <select name = "wind_direction"><br>
-                <option value = "N">N</option>
-                <option value = "NE">NE</option>
-                <option value = "E">E</option>
-                <option value = "SE">SE</option>
-                <option value = "S">S</option>
-                <option value = "SW">SW</option>
-                <option value = "W">W</option>
-                <option value = "NW">NW</option>
-            </select><br>
+		<link rel="shortcut icon" href="https://tympanus.net/Tutorials/favicon.ico"> 
+		<link rel="stylesheet" type="text/css" href="./Template/jquery.jscrollpane.custom.css">
+		<link rel="stylesheet" type="text/css" href="./Template/bookblock.css">
+		<link rel="stylesheet" type="text/css" href="./Template/custom.css">
+		<script src="./Template/quant.js" async="" type="text/javascript"></script><script type="text/javascript" async="" src="./Template/ga.js"></script><script src="./Template/modernizr.custom.79639.js"></script>
+	<script type="text/javascript">
 
-            3.Wave Action<br>
-            <input type = "text" name = "wave_action" maxlength = "5" size = "5"><br>
+  		(function() {
+    			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  		})();
+	</script>
 
-            4.Water Temperature <br>
-            <input type = "text" name = "water_temperature" maxlength = "5" size = "5">&deg;C<br>
+	<style>
+		html, body, form
+        {
+            height: 100%;
+            overflow: hidden;
+        }
+		#codrops-ad-wrapper {top: 10px !important; right: 40px !important;}
+	</style>
 
-            5.Ice thickness<br>
-            <input type = "text" name = "ice_thickness" maxlength = "5" size = "5">cm<br>
+	<link rel="stylesheet" type="text/css" href="./Template/demoadpacks.css"><script id="_carbonads_projs" type="text/javascript" src="./Template/C6AILKT.json"></script></head>
+	
+	
+	<body>
+		<form action="http://linux2.csie.ntu.edu.tw:3333/datapost" name="questionnaire" method="post">
+		<input type = "hidden" id = "lat" name = "lat" value>
+		<input type = "hidden" id = "lng" name = "lng" value>
 
-            6.Ice quality<br>
-            <input type = "text" name = "ice_quality" maxlength = "10" size = "10"><br>
+		<div id="container" class="container">	
 
-            7.Ice Distance From Shore<br>
-            <input type = "text" name = "ice_distance_from_shore" maxlength = "5" size = "5">km<br>
+			<div class="menu-panel">
+				<h3>Questionnaire</h3>
+				<ul id="menu-toc" class="menu-toc">
+					<li class=""><a href="https://tympanus.net/Tutorials/FullscreenBookBlock/#item1">Environment conditions</a></li>
+					<li class="menu-toc-current"><a href="https://tympanus.net/Tutorials/FullscreenBookBlock/#item2">Biological conditions</a></li>
+					<li class=""><a href="https://tympanus.net/Tutorials/FullscreenBookBlock/#item3">Social conditions</a></li>
+					<li><a href="https://tympanus.net/Tutorials/FullscreenBookBlock/#item4">Map yourself</a></li>
+				</ul>
+			</div>
 
-            8.Physical conditions of boat ramps<br>
-            <input type = "text" name = "boat_ramp" maxlength = "10" size = "10"><br>
+			<div class="bb-custom-wrapper">
+				<div id="bb-bookblock" class="bb-bookblock" style="perspective: 2000px;">
+					
+<!--Environment conditions-->
+					
+					<div class="bb-item" id="item1" style="display: none;">
+						<div class="content"><div class="scroller">
+								<h2>Environment conditions</h2>
+								<font size = "5">
+									1.Pollutions(click if there is)<br>
+									<input type="checkbox" name="algae_bloom" value="algae_bloom">Algae Bloom<br>
+									<input type="checkbox" name="surface_scum" value="surface_scum">Surface Scum<br>
+									<input type="checkbox" name="trash" value="trash">Surface Garbage<br>
+									<input type="checkbox" name="oil" value="oil">Oil<br><br>
 
-            9.Physical conditions of docks<br>
-            <input type = "text" name = "dock" maxlength = "10" size = "10"><br>
+									2.Wind Direction<br>
+									<select name="wind_direction">
+										<option value="N">N</option>
+										<option value="NE">NE</option>
+										<option value="E">E</option>
+										<option value="SE">SE</option>
+										<option value="S">S</option>
+										<option value="SW">SW</option>
+										<option value="W">W</option>
+										<option value="NW">NW</option>
+									</select><br><br>
 
-            10.Physical conditions of bathrooms<br>
-            <input type = "text" name = "bathroom" maxlength = "10" size = "10"><br>
+									3.Wave Action<br>
+									<input type="text" name="wave_action" maxlength="5" size="5"><br><br>
+									4.Water Temperature <br>
+									<input type="text" name="water_temperature" maxlength="5" size="5">°C<br><br>
+									5.Ice thickness<br>
+									<input type="text" name="ice_thickness" maxlength="5" size="5">cm<br><br>
+									6.Ice quality<br>
+									<input type="text" name="ice_quality" maxlength="10" size="10"><br><br>
+									7.Ice Distance From Shore<br>
+									<input type="text" name="ice_distance_from_shore" maxlength="5" size="5">km<br><br>
+									8.Physical conditions of boat ramps<br>
+									<input type="text" name="boat_ramp" maxlength="10" size="10"><br><br>
+									9.Physical conditions of docks<br>
+									<input type="text" name="dock" maxlength="10" size="10"><br><br>
+									10.Physical conditions of bathrooms<br>
+									<input type="text" name="bathroom" maxlength="10" size="10"><br><br>
+									11.Bathrooms available or not<br>
+									<input type="radio" name="bathroom_or_not" value="yes">Yes
+									<input type="radio" name="bathroom_or_not" value="no">No<br><br><br>
+								</font>
+								</div></div>
+					</div>
 
-            11.Bathrooms available or not<br>
-            <input type = "radio" name = "bathroom_or_not" value="yes" >Yes
-            <input type = "radio" name = "bathroom_or_not" value="no" >No<br><br><br>
+<!--Biological conditions-->
+					<div class="bb-item" id="item2" style="display: block;">
+						<div class="content jspScrollable" tabindex="0" style="overflow: hidden; padding: 0px; outline: none; width: 1538px;">
+							<div class="jspContainer" style="width: 1538px; height: 624px;">
+								<div class="jspPane" style="padding: 0px; top: 0px; width: 1529px;">
+									<div class="scroller">
+								<h2>Biological conditions</h2>
+								<font size = "5">
+									1.Fish kill(including scope, species, and other comments)<br>
+									<input type="radio" name="fish_kill" value="yes">Yes<br>
+									Photo documentation:<br>
 
-            <font size = "5">Biological conditions:</font><br>
-            1.Fish kill(including scope, species, and other comments)<br>
-            <input type = "radio" name = "fish_kill" value="yes" >Yes<br>
-            Photo documentation:<br>
+									<input type="radio" name="fish_kill" value="no">No<br><br>
+									2.Fish with deformities, disease, or injuries<br>
+									<input type="radio" name="fish_deformities" value="yes">Yes<br>
+									<input type="radio" name="fish_deformities" value="no">No<br><br>
+									3.Fish with marks or identification tags<br>
+									<input type="radio" name="fish_marks" value="yes">Yes<br>
+									<input type="radio" name="fish_marks" value="no">No<br><br>
+									4.Invasive fish, plants, or invertebrates<br>
+									<input type="radio" name="fish_invasive" value="yes">Yes<br>
+									<input type="radio" name="fish_invasive" value="no">No<br><br><br>
+								</font>
+								</div></div><div class="jspVerticalBar"><div class="jspCap jspCapTop"></div><div class="jspTrack" style="height: 544px;"><div class="jspDrag" style="height: 424px;"><div class="jspDragTop"></div><div class="jspDragBottom"></div></div></div><div class="jspCap jspCapBottom"></div></div></div></div>
+					</div>
 
-            <input type = "radio" name = "fish_kill" value="no" >No<br>
-            2.Fish with deformities, disease, or injuries<br>
-            <input type = "radio" name = "fish_deformities" value="yes" >Yes<br>
-            <input type = "radio" name = "fish_deformities" value="no" >No<br>
-            3.Fish with marks or identification tags<br>
-            <input type = "radio" name = "fish_marks" value="yes" >Yes<br>
-            <input type = "radio" name = "fish_marks" value="no" >No<br>
-            4.Invasive fish, plants, or invertebrates<br>
-            <input type = "radio" name = "fish_invasive" value="yes" >Yes<br>
-            <input type = "radio" name = "fish_invasive" value="no" >No<br><br><br>
+<!--Social conditions-->
+					<div class="bb-item" id="item3" style="display: none;">
+						<div class="content">
+							<div class="scroller">
+								<h2>Social conditions</h2>
+								<font size = "5">
+									1.The number of anglers observed<br>
+									<input type="text" name="angler_number" maxlength="5" size="5"><br><br>
 
-            <font size = "5">Social conditions:</font><br>
-            1.The number of anglers observed<br>
-            <input type = "text" name = "angler_number" maxlength = "5" size = "5"><br>
+									2.The number of boats observed<br>
+									<input type="text" name="boat_number" maxlength="5" size="5"><br><br>
 
-            2.The number of boats observed<br>
-            <input type = "text" name = "boat_number" maxlength = "5" size = "5"><br>
+									3.How crowded the location is, on a sclae of 1-10<br>
+									<input type="range" name="location_crowd" value="location_crowd" min="1" max="10">
+									<output for="location_crowd" onforminput="value = location_crowd.valueAsNumber;"></output><br><br>
 
-            3.How crowded the location is, on a sclae of 1-10<br>
-            <input type="range" name="location_crowd" value = "location_crowd" min="1" max="10">
-            <output for="location_crowd" onforminput="value = location_crowd.valueAsNumber;"></output><br>
+									4.How crowded the boat ramp is, on a sclae of 1-10<br>
+									<input type="range" name="boat_ramp_crowd" value="boat_ramp_crowd" min="1" max="10">
+									<output for="boat_ramp_crowd" onforminput="value = boat_ramp_crowd.valueAsNumber;"></output><br><br>
 
-            4.How crowded the boat ramp is, on a sclae of 1-10<br>
-            <input type="range" name="boat_ramp_crowd" value = "boat_ramp_crowd" min="1" max="10">
-            <output for="boat_ramp_crowd" onforminput="value = boat_ramp_crowd.valueAsNumber;"></output><br>
+									5.Poaching or illegal activity<br>
+									<input type="text" name="illegal" maxlength="10" size="10"><br>
+								</font>
+							</div></div></div>
 
-            5.Poaching or illegal activity<br>
-            <input type = "text" name = "illegal" maxlength = "10" size = "10"><br>
+<!--Map yourself-->
+					<div class="bb-item" id="item4" style="display: none;">
+						<div class="content">
+							<div class="scroller">
+								<h2>Map yourself</h2>
+								<div id="mapid" style="width: 700px; height: 500px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
+										<input type="submit" name="submit" value="Submit" style="height:50px; width:100px">								
+								</div>
+						</div>
+					</div>
+					
+				</div>
+				
+				<nav>
+					<span id="bb-nav-prev" style="display: block;">←</span>
+					<span id="bb-nav-next">→</span>
+				</nav>
 
-            <input type="submit" name="submit" value="Submit">
-        </form>
-        <div id="mapid" style="width: 700px; height: 500px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
-    </center>
-    </body>
-    <script type="text/javascript", src = question.js></script>
-</html>
+				<span id="tblcontents" class="menu-button">Table of Contents</span>
+
+			</div>
+				
+		</div><!-- /container -->
+		</form>
+
+
+		<script src="./Template/jquery.min.js"></script>
+		<script src="./Template/jquery.mousewheel.js"></script>
+		<script src="./Template/jquery.jscrollpane.min.js"></script>
+		<script src="./Template/jquerypp.custom.js"></script>
+		<script src="./Template/jquery.bookblock.js"></script>
+		<script src="./Template/page.js"></script>
+
+<script>
+			$(function() {
+
+				Page.init();
+
+			});
+		</script>
+		<script src="./Template/demoad.js"></script>
+	</body>
+	<script type="text/javascript", src = "http://linux2.csie.ntu.edu.tw:3333/question.js"></script>
+	</html>

@@ -169,12 +169,21 @@ function tmp(i, requestURL){
         for (var j = 0; j < data_list.length; j++) {
             tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
             tmp_mark.addTo(map)
-            tmp_mark.bindPopup(Type_list[i]+"<br>"+data_list[j][Type_list[i]])
+            tmp_mark.bindPopup(pop_content(Type_list[i],data_list[j][Type_list[i]]))
             tmp_mark.on('click', 
                 function onClick_marker(e){
                 tmp_mark.openPopup(e.latlng())
             })
         }
+    }
+}
+
+function pop_content(a,b){
+    if(a == b){
+        return "Notice <br>"+a
+    }
+    else{
+        return a + "<br>" + b
     }
 }
 

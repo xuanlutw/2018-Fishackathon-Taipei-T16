@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <title>Report</title>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link rel="shortcut icon" type="image/x-icon" href="http://leafletjs.com/examples/quick-start/docs/images/favicon.ico">       
+        <link rel="stylesheet" href="./leaflet/leaflet.css" />
+        <script src="./leaflet/leaflet.js"></script>
+    </head>
+    <body onload="gglocation()">
+        <center>
+            <form action = "datapost" name = "questionnaire" method = "post">
+            <input id= "lat" type = "hidden" name = "latitude" value >
+            <input id= "lon" type = "hidden" name = "longitude" value>
+            <font size = "5">Environment condtions:</font><br>
+
+            1.Pollutions(click if there is)<br>
+            <input type = "checkbox" name = "algae_bloom" value = "algae_bloom">Algae Bloom<br>
+            <input type = "checkbox" name = "surface_scum" value = "surface_scum">Algae Bloom<br>
+            <input type = "checkbox" name = "trash" value = "trash">Surface Garbage<br>
+            <input type = "checkbox" name = "oil" value = "oil">Oil<br>
+
+            2.Wind Direction<br>
+            <select name = "wind_direction"><br>
+                <option value = "N">N</option>
+                <option value = "NE">NE</option>
+                <option value = "E">E</option>
+                <option value = "SE">SE</option>
+                <option value = "S">S</option>
+                <option value = "SW">SW</option>
+                <option value = "W">W</option>
+                <option value = "NW">NW</option>
+            </select><br>
+
+            3.Wave Action<br>
+            <input type = "text" name = "wave_action" maxlength = "5" size = "5"><br>
+
+            4.Water Temperature <br>
+            <input type = "text" name = "water_temperature" maxlength = "5" size = "5">&deg;C<br>
+
+            5.Ice thickness<br>
+            <input type = "text" name = "ice_thickness" maxlength = "5" size = "5">cm<br>
+
+            6.Ice quality<br>
+            <input type = "text" name = "ice_quality" maxlength = "10" size = "10"><br>
+
+            7.Ice Distance From Shore<br>
+            <input type = "text" name = "ice_distance_from_shore" maxlength = "5" size = "5">km<br>
+
+            8.Physical conditions of boat ramps<br>
+            <input type = "text" name = "boat_ramp" maxlength = "10" size = "10"><br>
+
+            9.Physical conditions of docks<br>
+            <input type = "text" name = "dock" maxlength = "10" size = "10"><br>
+
+            10.Physical conditions of bathrooms<br>
+            <input type = "text" name = "bathroom" maxlength = "10" size = "10"><br>
+
+            11.Bathrooms available or not<br>
+            <input type = "radio" name = "bathroom_or_not" value="yes" >Yes
+            <input type = "radio" name = "bathroom_or_not" value="no" >No<br><br><br>
+
+            <font size = "5">Biological conditions:</font><br>
+            1.Fish kill(including scope, species, and other comments)<br>
+            <input type = "radio" name = "fish_kill" value="yes" >Yes<br>
+            Photo documentation:<br>
+
+            <input type = "radio" name = "fish_kill" value="no" >No<br>
+            2.Fish with deformities, disease, or injuries<br>
+            <input type = "radio" name = "fish_deformities" value="yes" >Yes<br>
+            <input type = "radio" name = "fish_deformities" value="no" >No<br>
+            3.Fish with marks or identification tags<br>
+            <input type = "radio" name = "fish_marks" value="yes" >Yes<br>
+            <input type = "radio" name = "fish_marks" value="no" >No<br>
+            4.Invasive fish, plants, or invertebrates<br>
+            <input type = "radio" name = "fish_invasive" value="yes" >Yes<br>
+            <input type = "radio" name = "fish_invasive" value="no" >No<br><br><br>
+
+            <font size = "5">Social conditions:</font><br>
+            1.The number of anglers observed<br>
+            <input type = "text" name = "angler_number" maxlength = "5" size = "5"><br>
+
+            2.The number of boats observed<br>
+            <input type = "text" name = "boat_number" maxlength = "5" size = "5"><br>
+
+            3.How crowded the location is, on a sclae of 1-10<br>
+            <input type="range" name="location_crowd" value = "location_crowd" min="1" max="10">
+            <output for="location_crowd" onforminput="value = location_crowd.valueAsNumber;"></output><br>
+
+            4.How crowded the boat ramp is, on a sclae of 1-10<br>
+            <input type="range" name="boat_ramp_crowd" value = "boat_ramp_crowd" min="1" max="10">
+            <output for="boat_ramp_crowd" onforminput="value = boat_ramp_crowd.valueAsNumber;"></output><br>
+
+            5.Poaching or illegal activity<br>
+            <input type = "text" name = "illegal" maxlength = "10" size = "10"><br>
+
+            <input type="submit" name="submit" value="Submit">
+        </form>
+        <div id="mapid" style="width: 700px; height: 500px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
+    </center>
+    </body>
+    <script type="text/javascript", src = question.js></script>
+</html>

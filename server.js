@@ -7,15 +7,28 @@ var MongoClient = require('mongodb').MongoClient;
 var fs = require('fs');
 
 var db_url = "mongodb://linux2.csie.ntu.edu.tw:3334/fishackathon";
-var port = 3333;
+var db_name = "fishackathon"
+var db_collection = "test3";
 var dbo;
+var port = 3333;
 
-var type = ["wind_direction", "wave_action", "water_temperature", "ice_thickness", "ice_quality", "ice_distance_from_shore", "boat_ramp", "dock", "bathroom", "angler_number", "boat_number", "location_crowd", "boat_ramp_crowd", "illegal"]; 
+var type_num = ["water_temperature", "ice_thickness", "ice_distance_from_shore",  "angler_number", "boat_number", "location_crowd", "boat_ramp_crowd"]; 
+var type_str = ["algae_bloom", "surface_scum", "trash", "oil", "wind_direction", "wave_action", "ice_quality", "boat_ramp", "dock", "bathroom", "bathroom_or_not", "illegal"];
 
 function write_log(mes){
     mes = "[" + new Date() + "] " + mes; 
     console.log(mes);
     fs.appendFile(__dirname + '/log', mes + '\n', function(err){});
+}
+
+function normalize_lng(lng){
+    var tmp = parseFloat(lng)
+    while(1){
+        if (tmp > -180 && tmp <= 180) break;
+        else if (tmp <= -180) tmp += 180;
+        else tmp -= 180;
+    }
+    return tmp;
 }
 
 // Index.html
@@ -44,29 +57,41 @@ app.get("/*.html", function(req, res) {
 app.post('/datapost', function(req, res){
     write_log(req.ip + " POST /datapost " + req.protocol + " 303");
     res.redirect(303, '/thanks.html');
-    for (var i = 0;i < type.length;++i){
-        if (!req.body[type[i]]) continue;
+    for (var i = 0;i < type_num.length;++i){
+        if (!req.body[type_num[i]]) continue;
         var obj = {};
-        obj[type[i]] = req.body[type[i]];
-        obj["lat"] = req.body["latitude"];
-        obj["lng"] = req.body["longitude"];
+        obj["type"] = type_num[i];
+        obj[type_num[i]] = parseFloat(req.body[type_num[i]]);
+        obj["lat"] = parseFloat(req.body["latitude"]);
+        obj["lng"] = normalize_lng(req.body["longitude"]);
         obj["time"] = new Date();
-        console.log(obj);
-        dbo.collection("test2").insertOne(obj, function(err, res) {
+        //console.log(obj);
+        dbo.collection(db_collection).insertOne(obj, function(err, res) {
             if (err) write_log("Insert database err!");
         });
     }
-    console.log(req.body);
+    for (var i = 0;i < type_str.length;++i){
+        if (!req.body[type_str[i]]) continue;
+        var obj = {};
+        obj["type"] = type_str[i];
+        obj[type_str[i]] = req.body[type_str[i]];
+        obj["lat"] = parseFloat(req.body["latitude"]);
+        obj["lng"] = normalize_lng(req.body["longitude"]);
+        obj["time"] = new Date();
+        //console.log(obj);
+        dbo.collection(db_collection).insertOne(obj, function(err, res) {
+            if (err) write_log("Insert database err!");
+        });
+    }
+    //console.log(req.body);
     /*
     dbo.collection("customers").find({}, { _id: 0, name: 1, address: 1 }).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
         db.close();
     });
-    */
     var query = { address:""  };
     //db.collection.find( { field: { $gt: value1, $lt: value2 } } );
-    /*
     dbo.collection("customers").find(query).toArray(function(err, result) {
         if (err) throw err;
         console.log(result);
@@ -74,6 +99,41 @@ app.post('/datapost', function(req, res){
     });
     */
 })
+
+// Get data
+app.get("/getdata", function(req, res) { 
+    var q = req.query;
+    q["lngW"] = normalize_lng(q["lngW"]);
+    q["lngE"] = normalize_lng(q["lngE"]);
+    q["latN"] = parseFloat(q["latN"]);
+    q["latS"] = parseFloat(q["latS"]);
+    var flag = 0;
+    for (var i = 0;i < type_num.length;++i){
+        if (type_num[i] == req.query["type"]) flag = 1;
+    }
+    for (var i = 0;i < type_str.length;++i){
+        if (type_str[i] == req.query["type"]) flag = 1;
+    }
+    if (!flag){
+        res.send(404);
+        write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
+    }
+    else{
+        dbo.collection(db_collection).find({$and: [// {"time_stamp": {$gt: q["time_star"]}},
+                                                                    //{"lat": {$gt: q["latS"], $lt: q["latN"]}}, 
+                                                                    //{"lng": {$gt: q["lngW"], $lt: q["lngE"]}},
+                                                                    {"type": q["type"]}]
+                                                                    }).toArray(function(err, result){
+        //dbo.collection(db_collection).find({"type":"wave_action"}).toArray(function(err, result) {
+            if (err) throw err;
+            //console.log(result);
+            //write_log(result[0]);
+            res.contentType('application/json');
+            res.send(result);
+            write_log(req.ip + " GET " +req.url + " " + req.protocol + " 200"); 
+        });
+    }
+});
 
 // Other file
 app.get(/(.*)\.(jpg|gif|png|ico|css|js|txt)/i, function(req, res) {
@@ -92,47 +152,19 @@ app.get(/(.*)\.(jpg|gif|png|ico|css|js|txt)/i, function(req, res) {
     });
 });
 
-/*
-app.get("/get_story2", function(req, res) {
-    //var no = req.query["no"];
-    res.status(200).json(story_list);
-    var to_write = "[" + new Date() + "] " + req.ip + " GET " +req.url + " " + req.protocol + " 200";
-    console.log(to_write);
-    fs.appendFile(__dirname + '/log', to_write + '\n', function(err){});
-});
-
-app.get("/get_story", function(req, res) {
-    var index = Math.floor(Math.random() * no_child_list.length);
-    res.status(200).json(story_list[no_child_list[index]])
-    var to_write = "[" + new Date() + "] " + req.ip + " GET " +req.url + " " + req.protocol + " 200";
-    console.log(to_write);
-    fs.appendFile(__dirname + '/log', to_write + '\n', function(err){});
-});
-
-app.get('/put_story', function(req, res) {
-    res.send("");
-    var to_write = "[" + new Date() + "] " + req.ip + " GET " +req.path + " " + req.protocol + " 200";
-    console.log(to_write);
-    fs.appendFile(__dirname + '/log', to_write + '\n', function(err){});
-    var no = req.query["no"];
-    if (story_list[no]["child"] == -1) story_list[no]["child"] = story_list.length;
-    else{
-        no = story_list[no]["child"];
-        while (story_list[no]["sibling"] != -1) no = story_list[no]["sibling"];
-        story_list[no]["sibling"] = story_list.length;
-    }
-    story_list.push({"no": story_list.length, "context": req.query["context"], "child": -1, "sibling": -1});
-    for (var i = 0;i < no_child_list.length;++i)
-        if (no_child_list[i] == no)
-            no_child_list.splice(i,1);
-    no_child_list.push(story_list.length - 1);
-    fs.writeFile("./story_list.json", JSON.stringify(story_list), function(err){});
-    });
-*/
 MongoClient.connect(db_url, function(err, db) {
     if (err) throw err;
-    dbo = db.db("fishackathon");
+    dbo = db.db(db_name);
     write_log("Connect database scuuess!");
+    /*
+    dbo.collection(db_collection).find().forEach(function(res){
+        var res2 = res
+        res2["lat"] = parseFloat(res["lat"]);
+        res2["lng"] = parseFloat(res["lng"]);
+        dbo.collection("test3").insertOne(res2, function(err, ress){});
+        console.log(res["_id"]);
+    });
+    */
 });
 
 // Intialization

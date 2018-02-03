@@ -33,7 +33,13 @@ function gglocation(){
     map.setView(current,16)
 }
 
-var marker = L.marker([lat, lng]).addTo(map);
+var current_location_icon = L.icon({
+    iconUrl: './png/current_place.png',
+    iconSize:     [30, 35], // size of the icon
+    iconAnchor:   [0, 0], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, 0] // point from which the popup should open relative to the iconAnchor
+});
+var marker = L.marker([lat, lng], {icon : current_location_icon}).addTo(map);
 
 // Click on map to report (Deleted)
 /*
@@ -51,8 +57,8 @@ function onMapClick(e)
 map.on('click', onMapClick); */
 
 // checked layers
-Type_list = ["algae_bloom",
-    "surface_scum",
+Type_list = ["algae_bloom", 
+    "surface_scum", 
     "trash", 
     "oil", 
     "water_temperature", 
@@ -69,6 +75,19 @@ Type_list = ["algae_bloom",
     "location_crowd", 
     "boat_number", 
     "illegal"]
+image_list = [5,7,6,7,3,2,8,17,20,22,10,12,9,15,18,16,19,21]
+
+var LeafIcon = L.Icon.extend({
+    options: {
+        iconSize:     [38, 95],
+        iconAnchor:   [0, 0],
+        popupAnchor:  [0, 35]
+    }
+});
+var icon_list[];
+for (var i = 0; i < Type_list.length; i++) {
+    icon_list.push(new LeafIcon({iconUrl: './png/image'+image_list[i]+'.png'}))
+}
 
 checked_list = new Array(Type_list.length);
 for(var i = 0 ; i < checked_list.length ; i++) checked_list[i] = false;
@@ -141,12 +160,11 @@ function show_icon(){
             request.responseType = 'json'
             request.send()
             request.onload = function(){
-                var x = request.response
-                var data_list = []
+                var data_list = request.response
                 for (var j = 0; j < data_list.length; j++) {
-                     data_list[j] = JSON.parse(data_list[j])
-                     tmp_mark = L.marker([data_list[j][lat],data_list[j][lng]])
-                     tmp_mark.addTo(map).on(
+                     tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
+                     tmp_mark.addTo(map)
+                     tmp_mark.on(
                         'mouseover', 
                         onClick_marker(
                             tmp_mark,

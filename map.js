@@ -170,11 +170,10 @@ function tmp(i, requestURL){
             tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
             tmp_mark.addTo(map)
             tmp_mark.bindPopup(Type_list[i]+"<br>"+data_list[j][Type_list[i]])
-            tmp_mark.on(
-                'mouseover', 
-                onClick_marker(){
-                    tmp_mark.openPopup()
-                })
+            tmp_mark.on('mouseover', 
+                function onClick_marker(){
+                tmp_mark.openPopup()
+            })
         }
     }
 }

@@ -1,16 +1,49 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>I'm map!</title>
-</head>
-<body bgcolor="#000000">
+<head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<title>MAPMAPMAP</title>
 
-<div style="text-align:center;">
-    <font color="#FFFFFF">
-        <h1>MAP</h1></br>
-    </font>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<link rel="shortcut icon" type="image/x-icon" href="http://leafletjs.com/examples/quick-start/docs/images/favicon.ico">
+
+   
+    <link rel="stylesheet" href="./leaflet/leaflet.css" />
+	<script src="./leaflet/leaflet.js"></script>	
+</head>
+<body>
+
+<div align = "center"><h1>MAPMAPMAP</h1></div>
+
+<div align = "center">
+<div id="mapid" style="width: 700px; height: 500px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
+</div>
+<br>
+<div id = "check box" align = "center">
+	<table align="left">
+		<tr>
+			<th> Environment</th> <th>Biology</th> <th>Human</th>
+		</tr>
+		<tr>
+			<th><form align = "left">
+				<input type="checkbox" name="algal"> algal <br>
+				<input type="checkbox" name="pollution"> pollution
+			</form></th>
+			<th><form align = "left">
+				<input type="checkbox" name="death"> death <br>
+				<input type="checkbox" name="deformity"> deformity
+			</form></th>
+			<th><form align = "left">
+				<input type="checkbox" name="boat"> boat <br>
+				<input type="checkbox" name="fisher"> fisher
+			</form>
+		</tr>
+	</table>
 </div>
 
+
+<script src="map.js"></script>
 </body>
 </html>

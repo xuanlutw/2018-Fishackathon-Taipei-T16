@@ -110,12 +110,12 @@ function show_icon(){
     for(var i = 0; i < Type_list.length; i++) {
        if(checked_list[i] == true){
             requestURL = url0 
-            + "type:" + Type_list[i] 
-            + "&time_start: " + pkdate() //////////
-            + "&latN:" + latN 
-            + "&latS:" + latS 
-            + "&lngW:" + lngW 
-            + "&lngE:" + lngE;
+            + "type=" + Type_list[i] 
+            + "&time_start=" + pkdate() //////////
+            + "&latN=" + latN 
+            + "&latS=" + latS 
+            + "&lngW=" + lngW 
+            + "&lngE=" + lngE;
        
             // send here
             var request = new XMLHttpRequest();

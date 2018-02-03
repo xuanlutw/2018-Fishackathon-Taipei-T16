@@ -140,14 +140,9 @@ function show_icon(){
             request.responseType = 'json'
             request.send()
             request.onload = function(){
-                var x = request.response
+                var y = request.response
                 var data_list = []
-                if(x.length != 0) {
-                    x = JSON.parse(x)
-                }
-                else{
-                    x = []
-                }
+                var x = JSON.parse(y)
                 for (var j = 0; j < data_list.length; j++) {
                      data_list[j] = JSON.parse(data_list[j])
                      tmp_mark = L.marker([data_list[j][lat],data_list[j][lng]])

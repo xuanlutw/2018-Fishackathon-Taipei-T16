@@ -79,7 +79,7 @@ image_list = [5,7,6,7,3,2,8,17,20,22,10,12,9,15,18,16,19,21]
 
 var LeafIcon = L.Icon.extend({
     options: {
-        iconSize:     [38, 95],
+        iconSize:     [28, 28],
         iconAnchor:   [0, 0],
         popupAnchor:  [0, 35]
     }
@@ -182,7 +182,7 @@ function tmp(i, requestURL){
 
 
 function onClick_marker(m,a,b){
-    m.bindPopup(a <br> b).openPopup()
+    m.bindPopup(a+"<br>"+ b).openPopup()
 }
 
 function pkdate(){

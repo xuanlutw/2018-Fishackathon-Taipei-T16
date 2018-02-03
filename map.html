@@ -27,6 +27,22 @@
 </div>
 <br>
 
+<div id = "time_selector" align = "center">
+	Data since
+	<select name = "time_selector" onchange="set_time()">
+		<option>1 hr</option>
+		<option>3 hrs</option>
+		<option> 6 hrs</option>
+		<option> 12 hrs</option>
+		<option> 1 day</option>
+		<option> 2 days</option>
+		<option> 3 days</option>
+		<option> 7 days</option>
+	</select>
+	ago
+</div>
+<br>
+
 <div id = "check box" align = "center">
 	<table>
 		<tr>
@@ -34,29 +50,30 @@
 		</tr>
 		<tr>
 			<th><form align = "left">
-				<input type="checkbox" name="algal"> algal <br>
-				<input type="checkbox" name="garbage"> garbage <br>
-				<input type="checkbox" name="oil"> oil <br>
-				<input type="checkbox" name="water"> water <br>
-				<input type="checkbox" name="wind"> wind <br>
-				<input type="checkbox" name="ice"> ice <br> 
+				<input type="checkbox" name="algal" value="0" onClick="set_type()"> algal <br>
+				<input type="checkbox" name="scum" value="1" onClick="set_type()"> scum <br>
+				<input type="checkbox" name="garbage" value="2" onClick="set_type()"> garbage <br>
+				<input type="checkbox" name="oil" value="3" onClick="set_type()"> oil <br>
+				<input type="checkbox" name="water" value="4" onClick="set_type()"> water <br>
+				<input type="checkbox" name="wind" value="5" onClick="set_type()"> wind <br>
+				<input type="checkbox" name="ice" value="6" onClick="set_type()"> ice <br> 
 			</form></th>
 			<th><form align = "left">
-				<input type="checkbox" name="boatRamp"> boat ramp <br>
-				<input type="checkbox" name="dock"> dock <br>
-				<input type="checkbox" name="toilet"> toilet 
+				<input type="checkbox" name="boatRamp" value="7" onClick="set_type()"> boat ramp <br>
+				<input type="checkbox" name="dock" value="8" onClick="set_type()"> dock <br>
+				<input type="checkbox" name="toilet" value="9" onClick="set_type()"> toilet 
 			</form></th>
 			<th><form align = "left">
-				<input type="checkbox" name="killed"> killed fish  <br>
-				<input type="checkbox" name="deform"> deformed/injured/diseased fish <br>
-				<input type="checkbox" name="mark"> marked/tagged fish <br>
-				<input type="checkbox" name="invasive"> invasive species
+				<input type="checkbox" name="killed" value="10" onClick="set_type()"> killed fish  <br>
+				<input type="checkbox" name="deform" value="11" onClick="set_type()"> deformed/injured/diseased fish <br>
+				<input type="checkbox" name="mark" value="12" onClick="set_type()"> marked/tagged fish <br>
+				<input type="checkbox" name="invasive" value="13" onClick="set_type()"> invasive species
 			</form></th>
 			<th><form align = "left">
-				<input type="checkbox" name="angler"> angler <br>
-				<input type="checkbox" name="crowd_people"> crowd (people) <br>
-				<input type="checkbox" name="crowd_boat"> crowd (boat) <br>
-				<input type="checkbox" name="illegal"> illegal activity
+				<input type="checkbox" name="angler" value="14" onClick="set_type()"> angler <br>
+				<input type="checkbox" name="crowd_people" value="15" onClick="set_type()"> crowd (people) <br>
+				<input type="checkbox" name="crowd_boat" value="16" onClick="set_type()"> crowd (boat) <br>
+				<input type="checkbox" name="illegal" value="17" onClick="set_type()"> illegal activity
 			</form>
 		</tr>
 	</table>

@@ -10,6 +10,8 @@ var db_url = "mongodb://linux2.csie.ntu.edu.tw:3334/fishackathon";
 var port = 3333;
 var dbo;
 
+var type = ["wind_direction", "wave_action", "water_temperature", "ice_thickness", "ice_quality", "ice_distance_from_shore", "boat_ramp", "dock", "bathroom", "angler_number", "boat_number", "location_crowd", "boat_ramp_crowd", "illegal"]; 
+
 function write_log(mes){
     mes = "[" + new Date() + "] " + mes; 
     console.log(mes);
@@ -19,11 +21,11 @@ function write_log(mes){
 // Index.html
 app.get("/", function(req, res) {
     res.sendFile(__dirname + '/map.html', function(err) {
-        if (err){
-            res.send(404);
-            write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
-        }
-        else write_log(req.ip + " GET " +req.url + " " + req.protocol + " 200");
+    if (err){
+        res.send(404);
+        write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
+    }
+    else write_log(req.ip + " GET " +req.url + " " + req.protocol + " 200");
     });
 });
 
@@ -41,19 +43,20 @@ app.get("/*.html", function(req, res) {
 // Post data
 app.post('/datapost', function(req, res){
     write_log(req.ip + " POST /datapost " + req.protocol + " 303");
-    console.log('wave_phase' + req.body.wave_phase);
-    console.log('CSRF token (from hidden form field): ' + req.body._csrf);
-    console.log('Name (from visible form field): ' + req.body.name);
-    console.log('Email (from visible form field): ' + req.body.email);
     res.redirect(303, '/thanks.html');
-    /*
-    var myobj = { name: "Company Inc", address: "Highway 37" };
-    dbo.collection("test").insertOne(myobj, function(err, res) {
-    if (err) throw err;
-        console.log("1 document inserted");
-        db.close();
-    });
-    */
+    for (var i = 0;i < type.length;++i){
+        if (!req.body[type[i]]) continue;
+        var obj = {};
+        obj[type[i]] = req.body[type[i]];
+        obj["lat"] = req.body["latitude"];
+        obj["lng"] = req.body["longitude"];
+        obj["time"] = new Date();
+        console.log(obj);
+        dbo.collection("test2").insertOne(obj, function(err, res) {
+            if (err) write_log("Insert database err!");
+        });
+    }
+    console.log(req.body);
     /*
     dbo.collection("customers").find({}, { _id: 0, name: 1, address: 1 }).toArray(function(err, result) {
         if (err) throw err;

@@ -3,7 +3,7 @@ var lat = 25.020418;
 var lng = 121.537630;
 var map = L.map('mapid').setView([25.020418, 121.537630], 16);
 var url_q = "question.html"
-var url0 = "linux2.csie.ntu.edu.tw:3333/getadata?"
+var url0 = "http://linux2.csie.ntu.edu.tw:3333/getadata?"
 var time_interval = 24 // hrs
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {

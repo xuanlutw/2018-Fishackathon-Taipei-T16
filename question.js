@@ -17,6 +17,7 @@ function onMapClick(e) {
     mymarker.setLatLng(e.latlng);
     document.getElementById("lat").value = e.latlng.lat;
     document.getElementById("lng").value = e.latlng.lng;
+    //console.log(e.latlng);
     //alert(e.latlng.lat + " " + e.latlng.lng);
 }
 map.on('click', onMapClick);
@@ -35,4 +36,3 @@ function gglocation(){
     }
 }
 
-gglocation();

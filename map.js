@@ -141,12 +141,11 @@ function show_icon(){
             request.responseType = 'json'
             request.send()
             request.onload = function(){
-                var x = request.response
-                var data_list = []
+                var data_list = request.response
                 for (var j = 0; j < data_list.length; j++) {
-                     data_list[j] = JSON.parse(data_list[j])
-                     tmp_mark = L.marker([data_list[j][lat],data_list[j][lng]])
-                     tmp_mark.addTo(map).on(
+                     tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]])
+                     tmp_mark.addTo(map)
+                     tmp_mark.on(
                         'mouseover', 
                         onClick_marker(
                             tmp_mark,

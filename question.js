@@ -9,6 +9,8 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
         'Imagery c <a href="http://mapbox.com">Mapbox</a>',
     id: 'mapbox.streets'
 }).addTo(map);
+document.getElementById("lat").value = init_latlng[0];
+document.getElementById("lng").value = init_latlng[1];
 
 function onMapClick(e) {
     map.setView(e.latlng, map.getZoom());
@@ -32,3 +34,5 @@ function gglocation(){
         alert("Geolocation is not supported by this browser.");
     }
 }
+
+gglocation();

@@ -81,7 +81,7 @@ var LeafIcon = L.Icon.extend({
     options: {
         iconSize:     [28, 28],
         iconAnchor:   [0, 0],
-        popupAnchor:  [0, 35]
+        popupAnchor:  [13, 0]
     }
 });
 var icon_list = [];

@@ -143,7 +143,7 @@ for(var i = 0 ; i < Type_list.length ; i ++){
 
 
 function show_icon(){
-    var requestURL
+    var requestURL = url0;
     for(var i = 0; i < Type_list.length; i++) {
        if(checked_list[i] == true){
             requestURL = url0
@@ -160,7 +160,6 @@ function show_icon(){
 
 // avoid asynchronize events WTF
 function tmp(i, requestURL){
-    requestURL = url0
     var request = new XMLHttpRequest();
     request.open('GET', requestURL)
     request.responseType = 'json'
@@ -176,6 +175,8 @@ function tmp(i, requestURL){
                     tmp_mark,
                     Type_list[i], 
                     data_list[j][Type_list[i]]))
+        }
+    }
 }
 
 

@@ -13,7 +13,7 @@ var dbo;
 var port = 3333;
 
 var type_num = ["water_temperature", "ice_thickness", "ice_distance_from_shore",  "angler_number", "boat_number", "location_crowd", "boat_ramp_crowd"]; 
-var type_str = ["algae_bloom", "surface_scum", "trash", "oil", "wind_direction", "wave_action", "ice_quality", "boat_ramp", "dock", "bathroom", "bathroom_or_not", "illegal"];
+var type_str = ["algae_bloom", "surface_scum", "trash", "oil", "wind_direction", "wave_action", "ice_quality", "boat_ramp", "dock", "bathroom", "bathroom_or_not", "illegal", "fish_kill", "fish_deformities", "fish_marks", "fish_invasive"];
 
 function write_log(mes){
     mes = "[" + new Date() + "] " + mes; 
@@ -27,7 +27,9 @@ function normalize_lng(lng){
         if (tmp > -180 && tmp <= 180) break;
         else if (tmp <= -180) tmp += 180;
         else tmp -= 180;
+        console.log(tmp);
     }
+    
     return tmp;
 }
 
@@ -62,8 +64,8 @@ app.post('/datapost', function(req, res){
         var obj = {};
         obj["type"] = type_num[i];
         obj[type_num[i]] = parseFloat(req.body[type_num[i]]);
-        obj["lat"] = parseFloat(req.body["latitude"]);
-        obj["lng"] = normalize_lng(req.body["longitude"]);
+        obj["lat"] = parseFloat(req.body["lat"]);
+        obj["lng"] = normalize_lng(req.body["lng"]);
         obj["time"] = new Date();
         //console.log(obj);
         dbo.collection(db_collection).insertOne(obj, function(err, res) {
@@ -75,15 +77,15 @@ app.post('/datapost', function(req, res){
         var obj = {};
         obj["type"] = type_str[i];
         obj[type_str[i]] = req.body[type_str[i]];
-        obj["lat"] = parseFloat(req.body["latitude"]);
-        obj["lng"] = normalize_lng(req.body["longitude"]);
+        obj["lat"] = parseFloat(req.body["lat"]);
+        obj["lng"] = normalize_lng(req.body["lng"]);
         obj["time"] = new Date();
         //console.log(obj);
         dbo.collection(db_collection).insertOne(obj, function(err, res) {
             if (err) write_log("Insert database err!");
         });
     }
-    //console.log(req.body);
+    console.log(req.body);
     /*
     dbo.collection("customers").find({}, { _id: 0, name: 1, address: 1 }).toArray(function(err, result) {
         if (err) throw err;
@@ -119,9 +121,9 @@ app.get("/getdata", function(req, res) {
         write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
     }
     else{
-        dbo.collection(db_collection).find({$and: [// {"time_stamp": {$gt: q["time_star"]}},
-                                                                    //{"lat": {$gt: q["latS"], $lt: q["latN"]}}, 
-                                                                    //{"lng": {$gt: q["lngW"], $lt: q["lngE"]}},
+        dbo.collection(db_collection).find({$and: [ {"time_stamp": {$gt: q["time_star"]}},
+                                                                    {"lat": {$gt: q["latS"], $lt: q["latN"]}}, 
+                                                                    {"lng": {$gt: q["lngW"], $lt: q["lngE"]}},
                                                                     {"type": q["type"]}]
                                                                     }).toArray(function(err, result){
         //dbo.collection(db_collection).find({"type":"wave_action"}).toArray(function(err, result) {

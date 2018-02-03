@@ -172,7 +172,7 @@ function tmp(i, requestURL){
             tmp_mark.bindPopup(Type_list[i]+"<br>"+data_list[j][Type_list[i]])
             tmp_mark.on('mouseover', 
                 function onClick_marker(){
-                tmp_mark.openPopup()
+                tmp_mark.openPopup(tmp_mark.getLatLng())
             })
         }
     }

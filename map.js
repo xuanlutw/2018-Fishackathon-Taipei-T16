@@ -84,7 +84,7 @@ var LeafIcon = L.Icon.extend({
         popupAnchor:  [0, 35]
     }
 });
-var icon_list[];
+var icon_list = [];
 for (var i = 0; i < Type_list.length; i++) {
     icon_list.push(new LeafIcon({iconUrl: './png/image'+image_list[i]+'.png'}))
 }
@@ -146,36 +146,39 @@ function show_icon(){
     var requestURL
     for(var i = 0; i < Type_list.length; i++) {
        if(checked_list[i] == true){
-            requestURL = url0 
+            requestURL = url0
             + "type=" + Type_list[i] 
-            + "&time_start=" + pkdate() //////////
+            + "&time_start=" + pkdate()
             + "&latN=" + latN 
             + "&latS=" + latS 
             + "&lngW=" + lngW 
             + "&lngE=" + lngE;
-       
-            // send here
-            var request = new XMLHttpRequest();
-            request.open('GET', requestURL)
-            request.responseType = 'json'
-            request.send()
-            request.onload = function(){
-                var data_list = request.response
-                for (var j = 0; j < data_list.length; j++) {
-                     tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
-                     tmp_mark.addTo(map)
-                     tmp_mark.on(
-                        'mouseover', 
-                        onClick_marker(
-                            tmp_mark,
-                            Type_list[i], 
-                            data_list[j][Type_list[i]]))
-                     // layer_list[i].push(tmp_mark)
-                }
-            }
+            tmp(i, requestURL)
         }
     }
 }
+
+// avoid asynchronize events WTF
+function tmp(i, requestURL){
+    requestURL = url0
+    var request = new XMLHttpRequest();
+    request.open('GET', requestURL)
+    request.responseType = 'json'
+    request.send()
+    request.onload = function(){
+        var data_list = request.response
+        for (var j = 0; j < data_list.length; j++) {
+            tmp_mark = L.marker([data_list[j]["lat"],data_list[j]["lng"]], {icon : icon_list[i]})
+            tmp_mark.addTo(map)
+            tmp_mark.on(
+                'mouseover', 
+                onClick_marker(
+                    tmp_mark,
+                    Type_list[i], 
+                    data_list[j][Type_list[i]]))
+}
+
+
 
 function onClick_marker(m,a,b){
     m.bindPopup(a <br> b).openPopup()

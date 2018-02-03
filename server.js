@@ -23,6 +23,7 @@ function write_log(mes){
 
 function normalize_lng(lng){
     var tmp = parseFloat(lng)
+    if (!tmp) return -200;
     while(1){
         if (tmp > -180 && tmp <= 180) break;
         else if (tmp <= -180) tmp += 180;
@@ -105,6 +106,7 @@ app.post('/datapost', function(req, res){
 // Get data
 app.get("/getdata", function(req, res) { 
     var q = req.query;
+    console.log(q);
     q["lngW"] = normalize_lng(q["lngW"]);
     q["lngE"] = normalize_lng(q["lngE"]);
     q["latN"] = parseFloat(q["latN"]);
@@ -121,7 +123,7 @@ app.get("/getdata", function(req, res) {
         write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
     }
     else{
-        dbo.collection(db_collection).find({$and: [ {"time_stamp": {$gt: q["time_star"]}},
+        dbo.collection(db_collection).find({$and: [ //{"time_stamp": {$gt: q["time_star"]}},
                                                                     {"lat": {$gt: q["latS"], $lt: q["latN"]}}, 
                                                                     {"lng": {$gt: q["lngW"], $lt: q["lngE"]}},
                                                                     {"type": q["type"]}]

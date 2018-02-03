@@ -69,6 +69,7 @@ Type_list = ["algae_bloom",
     "location_crowd", 
     "boat_number", 
     "illegal"]
+
 checked_list = new Array(Type_list.length);
 for(var i = 0 ; i < checked_list.length ; i++) checked_list[i] = false;
 var lngW = map.getBounds().getWest();
@@ -140,9 +141,8 @@ function show_icon(){
             request.responseType = 'json'
             request.send()
             request.onload = function(){
-                var y = request.response
+                var x = request.response
                 var data_list = []
-                var x = JSON.parse(y)
                 for (var j = 0; j < data_list.length; j++) {
                      data_list[j] = JSON.parse(data_list[j])
                      tmp_mark = L.marker([data_list[j][lat],data_list[j][lng]])

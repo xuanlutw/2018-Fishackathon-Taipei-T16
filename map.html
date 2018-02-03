@@ -2,7 +2,7 @@
 <html>
 <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	
-	<title>MAPMAPMAP</title>
+	<title>Map</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">	
 	<link rel="shortcut icon" type="image/x-icon" href="http://leafletjs.com/examples/quick-start/docs/images/favicon.ico">  
     <link rel="stylesheet" href="http://linux2.csie.ntu.edu.tw:3333/leaflet/leaflet.css" />
@@ -25,18 +25,19 @@
 <body>
 
 <div align = "center">
-<div id="mapid" style="width: 100%; height: 480px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
+<div id="mapid" style="width: 100%; height: 390px; position: relative;" class="leaflet-container leaflet-touch leaflet-retina leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom" tabindex="0"></div>
 </div>
 <br>
 
 
 <div id = "leftdiv">
 <div id = "report" align = "center">
-	<input type ="button" onclick="javascript:location.href='question.html'" value="REPORT!!!!!" style="height:50px; width:140px" ></input>
+	<input type ="button" onclick="javascript:location.href='question.html'" value="REPORT!" style="height:50px; width:140px; border:2px white none;background-color:#E3E3E3;font-weight:bold;" ></input>
 </div>
 <br>
 
 <div id = "time_selector" align = "center">
+    <font size = "3">
 	Data since
 	<select name = "time_selector" onchange="set_time()">
 		<option>1 hr</option>
@@ -49,13 +50,14 @@
 		<option> 7 days</option>
 	</select>
 	ago
+    </font>
 </div>
 <br>
 </div>
 
 
 <div id = "rightdiv">
-<font size = "5">
+<font size = "3">
 <div id = "check box" align = "center">
 	<table>
 		<tr>

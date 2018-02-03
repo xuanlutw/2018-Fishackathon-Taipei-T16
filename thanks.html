@@ -1,10 +1,15 @@
 <html>
     <head>
-        <title>Report</title>
+        <title>Thanks!</title>
     </head>
     <script type="text/javascript">
         var t = 4;
         function countdown(){
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            if (w < h) document.getElementById('thanks').width = w;
+            else document.getElementById('thanks').height = h * 0.9;
+
             t -= 1;
             document.getElementById('time').innerHTML = t + "...";
             if(t==0) location.href='/map.html';
@@ -13,7 +18,7 @@
     </script>
     <body onload="countdown()">
         <center>
-            <h1>Thanks!</h1>
+            <img id="thanks" src="/png/thanks-2.jpg">
             <p id="time"></p>
         </center>
     </body>

@@ -179,11 +179,13 @@ function tmp(i, requestURL){
 }
 
 function pop_content(a,b){
+    a = a.replace('_',' ')
+    a[0] = a[0].toUpperCase();
     if(a == b){
-        return "Notice <br>"+a
+        return "<center> Notice <br>"+a + "</center>"
     }
     else{
-        return a + "<br>" + b
+        return "<center>"+a + "<br>" + b+"</center>"
     }
 }
 
@@ -222,3 +224,5 @@ function pkdate(){
     now = new Date(s)
     return now
 }
+
+set_type()

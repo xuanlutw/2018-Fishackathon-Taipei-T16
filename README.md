@@ -25,7 +25,9 @@ HOW_TO_USE
   
   - To give a report, click the "report" button and fill in the following questionnaire.
   
-  CONTRIBUTOR
-    2018 Fishackathon
-    Chia-hsuan, Lu
-    Pei-Kai, Tsai
+  PROGRAMMER
+    - Angel, Lee
+    - An-Jun, Liu
+    - Chia-hsuan, Lu
+    - Pei-Kai, Tsai
+     @ 2018 Fishachathon, Taipei

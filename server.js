@@ -28,9 +28,8 @@ function normalize_lng(lng){
         if (tmp > -180 && tmp <= 180) break;
         else if (tmp <= -180) tmp += 180;
         else tmp -= 180;
-        console.log(tmp);
+        //console.log(tmp);
     }
-    
     return tmp;
 }
 
@@ -86,27 +85,13 @@ app.post('/datapost', function(req, res){
             if (err) write_log("Insert database err!");
         });
     }
-    console.log(req.body);
-    /*
-    dbo.collection("customers").find({}, { _id: 0, name: 1, address: 1 }).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-        db.close();
-    });
-    var query = { address:""  };
-    //db.collection.find( { field: { $gt: value1, $lt: value2 } } );
-    dbo.collection("customers").find(query).toArray(function(err, result) {
-        if (err) throw err;
-        console.log(result);
-            db.close();
-    });
-    */
+    //console.log(req.body);
 })
 
 // Get data
 app.get("/getdata", function(req, res) { 
     var q = req.query;
-    console.log(q);
+    //console.log(q);
     q["lngW"] = normalize_lng(q["lngW"]);
     q["lngE"] = normalize_lng(q["lngE"]);
     q["latN"] = parseFloat(q["latN"]);
@@ -140,19 +125,13 @@ app.get("/getdata", function(req, res) {
 });
 
 // Other file
-app.get(/(.*)\.(jpg|gif|png|ico|css|js|txt)/i, function(req, res) {
+app.get(/(.*)\.(jpg|gif|png|ico|css|json|js|txt)/i, function(req, res) {
     res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
         if (err){
             res.send(404);
-            var to_write = "[" + new Date() + "] " + req.ip + " GET " +req.url + " " + req.protocol + " 404";
-            console.log(to_write);
-            fs.appendFile(__dirname + '/log', to_write + '\n', function(err){});
+            write_log(req.ip + " GET " +req.url + " " + req.protocol + " 404");
         }
-        else{
-            var to_write = "[" + new Date() + "] " + req.ip + " GET " +req.url + " " + req.protocol + " 200";
-            console.log(to_write);
-            fs.appendFile(__dirname + '/log', to_write + '\n', function(err){});
-        }
+        else write_log(req.ip + " GET " +req.url + " " + req.protocol + " 200");
     });
 });
 
@@ -160,15 +139,6 @@ MongoClient.connect(db_url, function(err, db) {
     if (err) throw err;
     dbo = db.db(db_name);
     write_log("Connect database scuuess!");
-    /*
-    dbo.collection(db_collection).find().forEach(function(res){
-        var res2 = res
-        res2["lat"] = parseFloat(res["lat"]);
-        res2["lng"] = parseFloat(res["lng"]);
-        dbo.collection("test3").insertOne(res2, function(err, ress){});
-        console.log(res["_id"]);
-    });
-    */
 });
 
 // Intialization

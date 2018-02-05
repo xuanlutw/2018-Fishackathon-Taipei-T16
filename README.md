@@ -30,4 +30,5 @@ HOW_TO_USE
     - An-Jun, Liu
     - Chia-hsuan, Lu
     - Pei-Kai, Tsai
-     @ 2018 Fishachathon, Taipei
+    (list in alphebatical order)
+    @ 2018 Fishachathon, Taipei
